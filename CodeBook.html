@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Getting and Cleaning Data Project 1</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h1>Getting and Cleaning Data Project 1</h1>
+
+<p>One of the most exciting areas in all of data science right now is wearable computing - see for example <a href="http://www.insideactivitytracking.com/data-science-activity-tracking-and-the-battle-for-the-worlds-top-sports-brand/">this article</a> . Companies like Fitbit, Nike, and Jawbone Up are racing to develop the most advanced algorithms to attract new users. The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained: </p>
+
+<p><a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones">http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones</a> </p>
+
+<p>Here are the data for the project: </p>
+
+<p><a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a> </p>
+
+<p>After downloading the data file from <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip</a> an analysis of the structure of the ZIP file has been conducted.</p>
+
+<p>The features_info file in ZIP gave a clear desription of the features contained in the dataset:
+he features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix &#39;t&#39; to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. </p>
+
+<p>Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). </p>
+
+<p>Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the &#39;f&#39; to indicate frequency domain signals). </p>
+
+<p>These signals were used to estimate variables of the feature vector for each pattern:<br/>
+&#39;-XYZ&#39; is used to denote 3-axial signals in the X, Y and Z directions.</p>
+
+<ul>
+<li>tBodyAcc-XYZ</li>
+<li>tGravityAcc-XYZ</li>
+<li>tBodyAccJerk-XYZ</li>
+<li>tBodyGyro-XYZ</li>
+<li>tBodyGyroJerk-XYZ</li>
+<li>tBodyAccMag</li>
+<li>tGravityAccMag</li>
+<li>tBodyAccJerkMag</li>
+<li>tBodyGyroMag</li>
+<li>tBodyGyroJerkMag</li>
+<li>fBodyAcc-XYZ</li>
+<li>fBodyAccJerk-XYZ</li>
+<li>fBodyGyro-XYZ</li>
+<li>fBodyAccMag</li>
+<li>fBodyAccJerkMag</li>
+<li>fBodyGyroMag</li>
+<li>fBodyGyroJerkMag</li>
+</ul>
+
+<p>The set of variables that were estimated from these signals are: </p>
+
+<ul>
+<li>mean(): Mean value</li>
+<li>std(): Standard deviation</li>
+<li>others which are stripped by this script</li>
+</ul>
+
+<p>File features.txt contains the actual names and order of the featues in the dataset.</p>
+
+<p>From the README.txt file in the ZIP:
+The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. </p>
+
+<p>Training and test data respectively can be found in the ZIP in the test and train path.</p>
+
+<p>To read a single database (test or train) the subject IDs from subject<em>.txt are combined with activity names based on activity IDs in y</em>.tyt and activity names in activity_labels.txt. Then all data columns with mean and standard deviations of sensor values are extracted from the actual data file (X*.txt) and appended to the data frame. The column names for the data columns are based on the feature names read from features.txt.</p>
+
+<p>The remaining features in the resulting combined dataset combined_data.txt are:</p>
+
+<ul>
+<li>&ldquo;tBodyAcc-mean-X&rdquo;</li>
+<li>&ldquo;tBodyAcc-mean-Y&rdquo;</li>
+<li>&ldquo;tBodyAcc-mean-Z&rdquo;</li>
+<li>&ldquo;tBodyAcc-std-X&rdquo;</li>
+<li>&ldquo;tBodyAcc-std-Y&rdquo;</li>
+<li>&ldquo;tBodyAcc-std-Z&rdquo;</li>
+<li>&ldquo;tGravityAcc-mean-X&rdquo;</li>
+<li>&ldquo;tGravityAcc-mean-Y&rdquo;</li>
+<li>&ldquo;tGravityAcc-mean-Z&rdquo;</li>
+<li>&ldquo;tGravityAcc-std-X&rdquo;</li>
+<li>&ldquo;tGravityAcc-std-Y&rdquo;</li>
+<li>&ldquo;tGravityAcc-std-Z&rdquo;</li>
+<li>&ldquo;tBodyAccJerk-mean-X&rdquo;</li>
+<li>&ldquo;tBodyAccJerk-mean-Y&rdquo;</li>
+<li>&ldquo;tBodyAccJerk-mean-Z&rdquo;</li>
+<li>&ldquo;tBodyAccJerk-std-X&rdquo;</li>
+<li>&ldquo;tBodyAccJerk-std-Y&rdquo;</li>
+<li>&ldquo;tBodyAccJerk-std-Z&rdquo;</li>
+<li>&ldquo;tBodyGyro-mean-X&rdquo;</li>
+<li>&ldquo;tBodyGyro-mean-Y&rdquo;</li>
+<li>&ldquo;tBodyGyro-mean-Z&rdquo;</li>
+<li>&ldquo;tBodyGyro-std-X&rdquo;</li>
+<li>&ldquo;tBodyGyro-std-Y&rdquo;</li>
+<li>&ldquo;tBodyGyro-std-Z&rdquo;</li>
+<li>&ldquo;tBodyGyroJerk-mean-X&rdquo;</li>
+<li>&ldquo;tBodyGyroJerk-mean-Y&rdquo;</li>
+<li>&ldquo;tBodyGyroJerk-mean-Z&rdquo;</li>
+<li>&ldquo;tBodyGyroJerk-std-X&rdquo;</li>
+<li>&ldquo;tBodyGyroJerk-std-Y&rdquo;</li>
+<li>&ldquo;tBodyGyroJerk-std-Z&rdquo;</li>
+<li>&ldquo;tBodyAccMag-mean&rdquo;</li>
+<li>&ldquo;tBodyAccMag-std&rdquo;</li>
+<li>&ldquo;tGravityAccMag-mean&rdquo;</li>
+<li>&ldquo;tGravityAccMag-std&rdquo;</li>
+<li>&ldquo;tBodyAccJerkMag-mean&rdquo;</li>
+<li>&ldquo;tBodyAccJerkMag-std&rdquo;</li>
+<li>&ldquo;tBodyGyroMag-mean&rdquo;</li>
+<li>&ldquo;tBodyGyroMag-std&rdquo;</li>
+<li>&ldquo;tBodyGyroJerkMag-mean&rdquo;</li>
+<li>&ldquo;tBodyGyroJerkMag-std&rdquo;</li>
+<li>&ldquo;fBodyAcc-mean-X&rdquo;</li>
+<li>&ldquo;fBodyAcc-mean-Y&rdquo;</li>
+<li>&ldquo;fBodyAcc-mean-Z&rdquo;</li>
+<li>&ldquo;fBodyAcc-std-X&rdquo;</li>
+<li>&ldquo;fBodyAcc-std-Y&rdquo;</li>
+<li>&ldquo;fBodyAcc-std-Z&rdquo;</li>
+<li>&ldquo;fBodyAccJerk-mean-X&rdquo;</li>
+<li>&ldquo;fBodyAccJerk-mean-Y&rdquo;</li>
+<li>&ldquo;fBodyAccJerk-mean-Z&rdquo;</li>
+<li>&ldquo;fBodyAccJerk-std-X&rdquo;</li>
+<li>&ldquo;fBodyAccJerk-std-Y&rdquo;</li>
+<li>&ldquo;fBodyAccJerk-std-Z&rdquo;</li>
+<li>&ldquo;fBodyGyro-mean-X&rdquo;</li>
+<li>&ldquo;fBodyGyro-mean-Y&rdquo;</li>
+<li>&ldquo;fBodyGyro-mean-Z&rdquo;</li>
+<li>&ldquo;fBodyGyro-std-X&rdquo;</li>
+<li>&ldquo;fBodyGyro-std-Y&rdquo;</li>
+<li>&ldquo;fBodyGyro-std-Z&rdquo;</li>
+<li>&ldquo;fBodyAccMag-mean&rdquo;</li>
+<li>&ldquo;fBodyAccMag-std&rdquo;</li>
+<li>&ldquo;fBodyBodyAccJerkMag-mean&rdquo;</li>
+<li>&ldquo;fBodyBodyAccJerkMag-std&rdquo;</li>
+<li>&ldquo;fBodyBodyGyroMag-mean&rdquo;</li>
+<li>&ldquo;fBodyBodyGyroMag-std&rdquo;</li>
+<li>&ldquo;fBodyBodyGyroJerkMag-mean&rdquo;</li>
+<li>&ldquo;fBodyBodyGyroJerkMag-std&rdquo;</li>
+</ul>
+
+<p>The dataset combining the test and train data is written to combined_data.txt. 
+Also the average of each variable for each activity and each subject is 
+calculated and put into a 2nd independent dataset. This is written to 
+aggregated_data.txt.</p>
+
+<p>For a detailed description of the process pls. refer to run_analysis.R.</p>
+
+</body>
+
+</html>
+
